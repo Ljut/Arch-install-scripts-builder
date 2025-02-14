@@ -14,24 +14,6 @@ funkcija vraca pokazivac na izmjenjeni string.
 Napomena: Ne smije se kreirati pomocni niz ili string
 */
 
-/* ne da biblioteka da se koristi char*/
-/*else if (*next == 'c') {
-  // Izbaci trenutni element, vrati se poziciju unazad i zamjeni slovo
-  // sa sljedecim u listi
-  char *tmp = next;
-  while (*tmp != 0) {
-    tmp++;
-    *(tmp - 1) = *tmp;
-  }
-
-  int a = va_arg(args, int);
-  char c = -'0';
-  char *m = &a;
-  printf("\n%c:%d\n", c, c);
-  printf("\n%c:%c:%c:%c\n", *m, *++m, *++m, *++m);
-  *--next = c;
-
-}*/
 
 #include <stdarg.h>
 #include <stdio.h>

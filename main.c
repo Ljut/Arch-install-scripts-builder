@@ -141,42 +141,7 @@ int main() {
 
     /*print packages*/
     printf("|%s|\n",packages);
-/*
-    //get settings
-    fp=fopen("settings.txt","r");
-    if(!fp) {
-        printf("Failed to open settings.txt. exiting.\n");
-        return 110;
-    }
-    while(settings_size<MAX_SETTINGS && fgets(buffer, BLOCK*7+3,fp)) {
-        int j=0;
-        char *next = buffer;
-        while(*next !='\0' && *next!='\n' && *next!='>') {
-            settings[settings_size].setting[j++]=*next++;
-        }
-        settings[settings_size].setting[j]='\0';
-        j=0;
-        while (*next=='>')
-        {
-            settings[settings_size].write_type[j++]=*next++;
-        }
-        settings[settings_size].write_type[j]='\0';
-        j=0;
-        while(*next !='\0' && *next!='\n') {
-            settings[settings_size].destination[j++]=*next++;
-        }
-        settings[settings_size].destination[j]='\0';
-        settings_size++;
 
-    }
-    //close settings.txt
-    fclose(fp);
-
-    //print settings
-    for(i=0;i<settings_size;i++) {
-        printf("echo \"%s\" %s %s\n",settings[i].setting,settings[i].write_type, settings[i].destination);
-    }
-*/
     /*get commands*/
     fp=fopen("commands.txt","r");
     if(!fp) {
