@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "archinstallcommands.h"
-#include "stringformat.c"
+#include "stringformat.h"
 
 #define BLOCK 20
 #define MAX_USERS 5
@@ -45,7 +45,7 @@ int main() {
     /*struct Setting settings[MAX_SETTINGS];*/
     struct Command commands[MAX_COMMANDS];
 
-    char *packages = (char *)malloc(BLOCK * sizeof(char));
+    char *packages = (char*)malloc(BLOCK * sizeof(char));
     int vel = 0, velFull = BLOCK;
     /*char *packages;*/
     char buffer[BLOCK*5];
@@ -174,6 +174,7 @@ int main() {
 
     if(!fp) {
         printf("Failed to create build.sh. exiting.\n");
+        free(packages);
         return 149;
     }
     /* Put header */

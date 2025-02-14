@@ -14,7 +14,8 @@ funkcija vraca pokazivac na izmjenjeni string.
 Napomena: Ne smije se kreirati pomocni niz ili string
 */
 
-
+#ifndef STRINGFORMAT_C
+#define STRINGFORMAT_C
 #include <stdarg.h>
 #include <stdio.h>
 #include <string.h>
@@ -155,7 +156,7 @@ char *sf(char *s, ...) {
   va_end(args);
   return s;
 }
-
+#endif //STRINGFORMAT_C
 /*remove 'dont' to compile main()*/
 #define dontRUN
 
