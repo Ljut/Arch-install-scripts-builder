@@ -132,7 +132,6 @@ int main() {
         while(c==' ' || c=='\n') {
             c=fgetc(fp);
         }
-
         packages[vel++]=' ';
     }
     packages[--vel]='\0';
