@@ -1,0 +1,7 @@
+ln -sf /usr/share/zoneinfo/Europe/Sarajevo /etc/localtime
+hwclock --systohc
+
+echo "LANG=en_US.UTF-8" >> /etc/locale.conf
+echo "KEYMAP=croat" >> /etc/vconsole.conf
+echo "legion" > /etc/hostname
+locale-gen

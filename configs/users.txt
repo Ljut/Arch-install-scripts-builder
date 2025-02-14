@@ -1,0 +1,2 @@
+zlatan,/bin/bash
+arch,/bin/bash

@@ -1,0 +1,11 @@
+nano
+sudo
+networkmanager
+openssh
+git
+gcc
+grub
+grub-install 
+os-prober 
+fuse3 
+ntfs-3g
