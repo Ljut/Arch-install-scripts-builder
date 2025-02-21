@@ -1,5 +1,5 @@
 # test
-# disk,mount_point,swap?,boot?,umount_nakon_fstab?,format?,format
+# disk,mount_point,swap?,boot?,umount_after_fstab?,format?,format
 /dev/nvme0n1p6,/mnt,0,0,0,1,ext4
 /dev/nvme0n1p1,/mnt/boot,0,1,1,0,
 /dev/nvme0n1p8,/mnt/home,0,0,0,0,

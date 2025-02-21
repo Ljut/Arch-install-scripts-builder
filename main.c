@@ -258,7 +258,7 @@ int main() {
     /* Add users */
     fputc('\n',fp);
     strcpy(buffer,ECHOS[echo_msg_pos++]);
-    int* l=(int*)malloc(sizeof(int));
+    unsigned int* l=(unsigned int*)malloc(sizeof(unsigned int));
     *l=0;
     for(i=0;i<users_size;i++) {
         *l+=strlen(users[i].name);
@@ -316,13 +316,13 @@ int main() {
 }
 
 /*
-Napravi strukturu koja sadezi sljedece informacije:
-
+Create a structure which holds next information:
 disk
-mjesto gdje ce se uraditi mount
-je li swap
-je li boot
-treba li se umountati nakon fstaba
-treba li se formatirati
-koji format da se koristi (sad realno samo ext4)
+where should it mount
+is it swap
+is it bootable
+should it be unmounted after fstab
+should it be formated
+which format to use (ext4)
+
 */
