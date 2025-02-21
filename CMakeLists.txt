@@ -14,4 +14,5 @@ add_custom_command(
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/configs/partitions.txt ${CMAKE_BINARY_DIR}/partitions.txt
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/configs/settings.txt ${CMAKE_BINARY_DIR}/settings.txt
         COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/configs/users.txt ${CMAKE_BINARY_DIR}/users.txt
+        COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/configs/postinstall.sh ${CMAKE_BINARY_DIR}/postinstall.sh
 )

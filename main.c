@@ -56,7 +56,7 @@ int main() {
     fp=fopen("users.txt", "r");
     if(!fp) {
         printf("Failed to open users.txt. exiting.\n");
-        return 32;
+        exit(32);
     }
     while (users_size<MAX_USERS && fgets(buffer,BLOCK*3,fp))
     {
@@ -76,7 +76,8 @@ int main() {
     fp=fopen("partitions.txt", "r");
     if(!fp) {
         printf("Failed to open partitions.txt. exiting.\n");
-        return 50;
+        free(packages);
+        exit(50);
     }
     while (partitions_size<MAX_PARTITIONS && fgets(buffer,BLOCK*5,fp))
     {
@@ -115,7 +116,8 @@ int main() {
     fp=fopen("packages.txt", "r");
     if(!fp) {
         printf("Failed to open packages.txt. exiting.\n");
-        return 70;
+        free(packages);
+        exit(70);
     }
     char c=fgetc(fp);
     while (c!=EOF)
@@ -125,7 +127,13 @@ int main() {
             packages[vel++]=c;
             if (vel >= velFull) {
                 velFull += BLOCK;
-                packages = (char *)realloc(packages, velFull * sizeof(char));
+                char* tmp = (char *)realloc(packages, velFull * sizeof(char));
+                if(!tmp) {
+                    printf("Failed to reallocate memory for packages. exiting.\n");
+                    free(packages);
+                    exit(134);
+                }
+                packages=tmp;
             }
             c=fgetc(fp);
         }
@@ -145,7 +153,7 @@ int main() {
     fp=fopen("commands.txt","r");
     if(!fp) {
         printf("Failed to open commands.txt. exiting.\n");
-        return 187;
+        exit(187);
     }
 
     while(commands_size<MAX_COMMANDS) {
@@ -173,8 +181,7 @@ int main() {
 
     if(!fp) {
         printf("Failed to create build.sh. exiting.\n");
-        free(packages);
-        return 149;
+        exit(149);
     }
     /* Put header */
     fputs(SCRIPT_HEADER,fp);
@@ -206,6 +213,11 @@ int main() {
     fputs("umount -R /mnt\n\n",fp);
     for(i=0;i<partitions_size;i++) {
         char *next = buffer;
+        if (partitions[i].is_swap) {
+            strcpy(next, "swapon %s\n");
+            fputs(sf(next,partitions[i].partition),fp);
+            continue;
+        }
         if(!partitions[i].to_umount) {
             strcpy(next, "mount %s %s\n");
             fputs(sf(next,partitions[i].partition,partitions[i].path),fp);
@@ -221,7 +233,7 @@ int main() {
 
     if(!fp) {
         printf("Failed to create build.sh. exiting.\n");
-        return 180;
+        exit(180);
     }
     fputs(SCRIPT_HEADER,fp);
 
@@ -274,6 +286,21 @@ int main() {
         fputs(sf(next1,users[i].shell,users[i].name,users[i].name),fp);
     }
 
+    /* Add post installation commands */
+    FILE *fp1 = fopen("postinstall.sh","r");
+    if(!fp1) {
+        printf("Failed to open postinstall.sh. exiting.\n");
+        exit(293);
+    }
+    do {
+        c=fgetc(fp1);
+        if (c!=EOF) {
+            fputc(c,fp);
+        }
+    } while (c!=EOF);
+    fclose(fp1);
+    fputc('\n',fp);
+    fputc('\n',fp);
 
     /* echo rest of echo messages */
     for(i=echo_msg_pos;i<ECHO_COUNT;i++) {
@@ -283,7 +310,6 @@ int main() {
     /* close all */
     fclose(fp);
     printf("Done.\n");
-
 
 
     return 0;

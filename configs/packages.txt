@@ -5,7 +5,7 @@ openssh
 git
 gcc
 grub
-grub-install 
+efibootmgr
 os-prober 
 fuse3 
 ntfs-3g
