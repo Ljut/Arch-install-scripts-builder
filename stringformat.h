@@ -2,16 +2,15 @@
 // Created by Zlatan Ljutika on 14. 2. 2025..
 //
 /*
-Napisati funkciju char* sf(char *s, ...) koja prima string i na mjestima gdje se
-nalazi modifikator %, mjenja taj dio stringa na adekvatan nacin.
-Moguci modifikatori su:
-%d - int
-%s - string
-%c - char
-%% - sam %
-funkcija vraca pokazivac na izmjenjeni string.
+Create a function char* sf(char *s, ...) that takes a string and replaces
+occurrences of the % modifier with the corresponding values.
+Possible modifiers are:
+    %d - an integer
+    %s - a string
+    %% - the % character itself
+The function returns a pointer to the modified string.
 
-Napomena: Ne smije se kreirati pomocni niz ili string
+Note: A helper array or string must not be created.
 */
 
 #ifndef STRINGFORMAT_C
@@ -25,7 +24,7 @@ Napomena: Ne smije se kreirati pomocni niz ili string
     printf("%c", s[k]);                                                        \
   printf("\n");
 
-int prebrojmjestacifri(int a) {
+inline int countTheDigits(int a) {
   int br = 0;
   if (a < 0)
     br++;
@@ -40,7 +39,7 @@ int prebrojmjestacifri(int a) {
   return br;
 }
 
-char *sf(char *s, ...) {
+inline char *sf(char *s, ...) {
   va_list args;
   va_start(args, s);
 
@@ -49,7 +48,7 @@ char *sf(char *s, ...) {
     if (*next == '%') {
       if (*++next != 0) {
         if (*next == '%') {
-          /* Izbaci trenutni element */
+          /* remove current element */
           char *tmp = next;
           while (*tmp != 0) {
             tmp++;
@@ -57,10 +56,10 @@ char *sf(char *s, ...) {
           }
         } else if (*next == 'd') {
           int a = va_arg(args, int);
-          int br_mjesta = prebrojmjestacifri(a);
+          int digits_count = countTheDigits(a);
 
-          /* 1 cifra */
-          if (br_mjesta == 1) {
+          /* 1 digit */
+          if (digits_count == 1) {
             next--;
             *next++ = a + '0';
             char *tmp = next;
@@ -69,7 +68,7 @@ char *sf(char *s, ...) {
               *(tmp - 1) = *tmp;
             }
             next--;
-          } else if (br_mjesta == 2) {
+          } else if (digits_count == 2) {
             if (a < 0) {
               *--next = '-';
               *++next = (-a) + '0';
@@ -80,15 +79,15 @@ char *sf(char *s, ...) {
 
           } else {
             --next;
-            int delta = br_mjesta - 2;
+            int delta = digits_count - 2;
             if (a < 0) {
               *next++ = '-';
-              br_mjesta--;
+              digits_count--;
               a *= -1;
-              delta = br_mjesta - 1;
+              delta = digits_count - 1;
             }
             char *tmp = next;
-            tmp += br_mjesta - 1;
+            tmp += digits_count - 1;
             char *end = next;
             while (*end != 0) {
               end++;
@@ -110,7 +109,7 @@ char *sf(char *s, ...) {
           char *s1 = va_arg(args, char *);
           int l1 = strlen(s1);
           if (l1 == 0) {
-            /* samo shift sve u lijevo */
+            /* shift all to left */
             char *tmp = next;
             --next;
             while (*tmp != 0) {
@@ -129,10 +128,10 @@ char *sf(char *s, ...) {
             }
             *--next = *s1;
           } else {
-            /* Ako je više od 2 slova, shift ostatak rijeci u desno za l1-2 */
+            /* If there are more then 2 characters, shift rest of text to right by l1-2 */
             next--;
             char *end = next;
-            int delta = l1 - 2;
+            const int delta = l1 - 2;
             while (*end != '\0') {
               end++;
             }

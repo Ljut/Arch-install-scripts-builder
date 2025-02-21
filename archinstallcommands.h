@@ -12,9 +12,10 @@ char CPY2STAGE[] = "cp 2stage.sh /mnt/\n";
 char PACSTRAP[] = "pacstrap -K /mnt base linux linux-firmware\n";
 char GENFSTAB[] = "genfstab -U /mnt >> /mnt/etc/fstab\n";
 
-#define GRUBSETUP_COUNT 2
+#define GRUBSETUP_COUNT 3
 char GRUBSETUP[GRUBSETUP_COUNT][100] = {
     "grub-install --target=x86_64-efi --efi-directory=/boot --bootloader-id=GRUB\n",
+    "echo \"GRUB_DISABLE_OS_PROBER=false\" >> /etc/default/grub",
     "grub-mkconfig -o /boot/grub/grub.cfg\n"
 };
 
