@@ -1,5 +1,5 @@
 //
-// Created by Zlatan Ljutika on 14. 2. 2025..
+// Created by ljut on 14. 2. 2025..
 //
 /*
 Create a function char* sf(char *s, ...) that takes a string and replaces
