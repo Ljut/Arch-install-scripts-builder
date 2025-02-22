@@ -6,6 +6,13 @@ git
 gcc
 grub
 efibootmgr
-os-prober 
+os-prober
 fuse3 
 ntfs-3g
+sddm
+plasma-desktop
+firefox
+gnome-terminal
+avahi
+base-devel
+kiwix-desktop
