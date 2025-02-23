@@ -114,7 +114,7 @@ __NOTE:__ Using newlines (`\n`) is recommended to prevent buffer overflow issues
 This file contains commands to be executed at the beginning of `2stage.sh`.
 
 Example:
-```
+```sh
 ln -sf /usr/share/zoneinfo/Europe/City /etc/localtime
 hwclock --systohc
 
@@ -127,6 +127,13 @@ locale-gen
 ### `postinstall.sh`
 
 This file contains commands to be executed after the installation, typically for configuring installed packages from `packages.txt`.
+
+Example:
+
+```sh
+# Put here configurations and commands to run after base install
+systemctl enable NetworkManager.service
+```
 
 __NOTE:__ `postinstall.sh` should not include `#!/bin/sh` or `set -e`, as these will already be included in `2stage.sh`.
 
